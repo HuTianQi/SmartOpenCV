@@ -1,0 +1,1 @@
+include ':app', ':openCVLibrary411', ':smartopencv'

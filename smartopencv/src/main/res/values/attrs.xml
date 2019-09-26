@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+    Copyright (C) 2016 The Android Open Source Project
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+         http://www.apache.org/licenses/LICENSE-2.0
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
+<resources>
+    <declare-styleable name="SmartOpenCV">
+        <!--设置为true，如果想使用前置摄像头显示预览-->
+        <attr name="is_front_camera" format="boolean" />
+        <!--设置为true，如果想使用Camera2显示预览-->
+        <attr name="use_camera2" format="boolean" />
+        <!--设置为true，则保持屏幕常亮-->
+        <attr name="keep_screen_on" format="boolean" />
+        <!--设置为true，如果想使用opencv官方默认的预览图像绘制算法-->
+        <attr name="use_opencv_default_draw_strategy" format="boolean" />
+        <!--设置为true，如果想使用opencv官方默认的预览帧大小计算算法-->
+        <attr name="use_opencv_default_preview_calculator" format="boolean" />
+        <attr name="preview_max_width" format="integer" />
+        <attr name="preview_max_height" format="integer" />
+    </declare-styleable>
+</resources>
