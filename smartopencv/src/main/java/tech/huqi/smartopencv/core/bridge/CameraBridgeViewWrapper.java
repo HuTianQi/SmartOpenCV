@@ -172,15 +172,21 @@ public abstract class CameraBridgeViewWrapper implements ICameraViewBridge, ICam
     public void AllocateCache(int frameWidth, int frameHeight) {
         mConvertRgbaMat = new Mat();
         mConvertGrayMat = new Mat();
-        if (isSetLandscape && Util.isLandscape(mBase)) {
+        if (Util.isLandscape(mBase)) {
             mCacheBitmap = Bitmap.createBitmap(frameWidth, frameHeight, Bitmap.Config.ARGB_8888);
-            return;
+            if (!isSetLandscape) {
+                Util.printErrorLog("[Warning]:You've called \".landscape(false)\", but the actual direction of the screen is horizontal," +
+                        "please set the 'android:screenOrientation = \"portrait\"' in your Activity of AndroidManifest.xml");
+                isSetLandscape = true;
+            }
+        } else {
+            mCacheBitmap = Bitmap.createBitmap(frameHeight, frameWidth, Bitmap.Config.ARGB_8888);
+            if (isSetLandscape) {
+                Util.printErrorLog("[Warning]:You set the horizontal direction, but the actual direction of the screen is not horizontal," +
+                        "please set the 'android:screenOrientation = \"landscape\" \"in your Activity of AndroidManifest.xml");
+                isSetLandscape = false;
+            }
         }
-        if (isSetLandscape && !Util.isLandscape(mBase)) {
-            Util.printErrorLog("You set the horizontal direction, but the actual direction of the screen is not horizontal," +
-                    "please set the 'android:screenOrientation = \"landscape\" \"in your AndroidManifest.xml");
-        }
-        mCacheBitmap = Bitmap.createBitmap(frameHeight, frameWidth, Bitmap.Config.ARGB_8888);
     }
 
     private CvCameraViewFrame adjustImageOrientation(CvCameraViewFrame frame) {
