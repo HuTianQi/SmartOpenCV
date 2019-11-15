@@ -20,6 +20,7 @@ import tech.huqi.smartopencv.core.cv.JavaCameraFrame;
 import tech.huqi.smartopencv.utils.CameraHelper;
 import tech.huqi.smartopencv.utils.Util;
 
+import static org.opencv.android.CameraBridgeViewBase.CAMERA_ID_BACK;
 import static org.opencv.android.CameraBridgeViewBase.CAMERA_ID_FRONT;
 
 /**
@@ -44,10 +45,11 @@ public abstract class CameraBridgeViewWrapper implements ICameraViewBridge, ICam
     private Bitmap mCacheBitmap;
     private CvCameraViewListener2 mListener;
     protected CameraBridgeViewBase mBase;
-    protected boolean isUseFrontCamera;
+    protected boolean isUseFrontCamera = false;
     protected boolean isSetLandscape;
     private Mat mConvertRgbaMat;
     private Mat mConvertGrayMat;
+    private int mCameraId;
 
     public CameraBridgeViewWrapper(CameraBridgeViewBase base, CameraBridgeViewBaseUnit unit) {
         mBase = base;
@@ -63,8 +65,11 @@ public abstract class CameraBridgeViewWrapper implements ICameraViewBridge, ICam
     public void setCameraIndex(int cameraIndex) {
         if (cameraIndex == CAMERA_ID_FRONT) {
             isUseFrontCamera = true;
+            mCameraId = CameraHelper.getFrontCameraId();
+        } else if (cameraIndex == CAMERA_ID_BACK) {
+            mCameraId = CameraHelper.getBackCameraId();
         } else {
-            isUseFrontCamera = false;
+            mCameraId = cameraIndex;
         }
     }
 
@@ -180,8 +185,8 @@ public abstract class CameraBridgeViewWrapper implements ICameraViewBridge, ICam
 
     private CvCameraViewFrame adjustImageOrientation(CvCameraViewFrame frame) {
         Context context = mBase.getContext();
-        CameraHelper.adjustImageOrientation(context, frame.rgba(), mConvertRgbaMat, isUseFrontCamera, isSetLandscape);
-        CameraHelper.adjustImageOrientation(context, frame.gray(), mConvertGrayMat, isUseFrontCamera, isSetLandscape);
+        CameraHelper.adjustImageOrientation(context, frame.rgba(), mConvertRgbaMat, isUseFrontCamera, isSetLandscape, mCameraId);
+        CameraHelper.adjustImageOrientation(context, frame.gray(), mConvertGrayMat, isUseFrontCamera, isSetLandscape, mCameraId);
         return JavaCameraFrame.getInstance().setRgba(mConvertRgbaMat).setGray(mConvertGrayMat);
     }
 

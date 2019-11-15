@@ -28,7 +28,7 @@ public class CameraPreviewManager extends CameraPreviewAdapter {
 
     public void init(CameraConfiguration cameraConfiguration) {
         if (cameraConfiguration.cameraIndex != CameraConfiguration.NOT_SET_VALUE) {
-            mBase.setCameraIndex(cameraConfiguration.cameraIndex);
+            ((ICameraPreview) mBase).setCameraIndex(cameraConfiguration.cameraIndex);
         }
         if (cameraConfiguration.landscape) {
             ((ICameraPreview) mBase).setLandscape(true);

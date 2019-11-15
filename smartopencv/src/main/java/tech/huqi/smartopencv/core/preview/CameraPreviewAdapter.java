@@ -14,4 +14,8 @@ public abstract class CameraPreviewAdapter implements ICameraPreview {
         // empty
     }
 
+    @Override
+    public void setCameraIndex(int cameraIndex) {
+        // empty
+    }
 }

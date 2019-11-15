@@ -9,6 +9,8 @@ import tech.huqi.smartopencv.draw.IPreviewSizeCalculator;
 public interface ICameraPreview {
     void setUseFrontCamera(boolean isUseFrontCamera);
 
+    void setCameraIndex(int cameraIndex);
+
     void setLandscape(boolean isAllowedScreenSwitch);
 
     void setDrawStrategy(IDrawStrategy mDrawStrategy);

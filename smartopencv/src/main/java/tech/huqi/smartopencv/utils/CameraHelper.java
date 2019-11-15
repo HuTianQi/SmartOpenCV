@@ -15,8 +15,8 @@ import org.opencv.core.Mat;
 public class CameraHelper {
 
     public static void adjustImageOrientation(Context context, Mat srcMat, Mat dstMat,
-                                              boolean isFrontCamera, boolean isSetLandscape) {
-        int degree = getFrontCameraRotateDegree();
+                                              boolean isFrontCamera, boolean isSetLandscape, int cameraId) {
+        int degree = getCameraRotateDegree(cameraId);
         if (isFrontCamera) {
             if (isSetLandscape) {
                 if (Util.isPortrait(context)) {
@@ -52,9 +52,9 @@ public class CameraHelper {
 
     private static void rotateBackCameraMat(Mat srcMat, Mat dstMat, int degree) {
         if (degree == 90) {
-            Core.rotate(srcMat, dstMat, Core.ROTATE_90_COUNTERCLOCKWISE);
-        } else {
             Core.rotate(srcMat, dstMat, Core.ROTATE_90_CLOCKWISE);
+        } else {
+            Core.rotate(srcMat, dstMat, Core.ROTATE_180);
         }
     }
 
@@ -84,4 +84,27 @@ public class CameraHelper {
         Bitmap result = Bitmap.createBitmap(image, 0, 0, width, height, matrix, true);
         return result;
     }
+
+    public static int getBackCameraId() {
+        Camera.CameraInfo cameraInfo = new Camera.CameraInfo();
+        for (int camIdx = 0; camIdx < Camera.getNumberOfCameras(); ++camIdx) {
+            Camera.getCameraInfo(camIdx, cameraInfo);
+            if (cameraInfo.facing == Camera.CameraInfo.CAMERA_FACING_BACK) {
+                return camIdx;
+            }
+        }
+        return 0;
+    }
+
+    public static int getFrontCameraId() {
+        Camera.CameraInfo cameraInfo = new Camera.CameraInfo();
+        for (int camIdx = 0; camIdx < Camera.getNumberOfCameras(); ++camIdx) {
+            Camera.getCameraInfo(camIdx, cameraInfo);
+            if (cameraInfo.facing == Camera.CameraInfo.CAMERA_FACING_FRONT) {
+                return camIdx;
+            }
+        }
+        return 1;
+    }
+
 }
