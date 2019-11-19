@@ -51,6 +51,9 @@ public class CameraPreviewManager extends CameraPreviewAdapter {
         if (cameraConfiguration.keepScreenOn) {
             mBase.setKeepScreenOn(true);
         }
+        if (cameraConfiguration.enableFpsMeter) {
+            mBase.enableFpsMeter();
+        }
         if (cameraConfiguration.maxWidth != CameraConfiguration.NOT_SET_VALUE &&
                 cameraConfiguration.maxHeight != CameraConfiguration.NOT_SET_VALUE) {
             mBase.setMaxFrameSize(cameraConfiguration.maxWidth, cameraConfiguration.maxHeight);

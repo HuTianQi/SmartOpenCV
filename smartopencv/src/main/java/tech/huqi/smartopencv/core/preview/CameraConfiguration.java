@@ -17,6 +17,7 @@ public class CameraConfiguration {
     final boolean landscape;
     final boolean frontCamera;
     final boolean keepScreenOn;
+    final boolean enableFpsMeter;
     final boolean openCvDefaultDrawStrategy;
     final boolean openCvDefaultPreviewCalculator;
     final boolean allowedScreenOrientationSwitch;
@@ -32,6 +33,7 @@ public class CameraConfiguration {
         this.landscape = builder.landscape;
         this.frontCamera = builder.frontCamera;
         this.keepScreenOn = builder.keepScreenOn;
+        this.enableFpsMeter = builder.enableFpsMeter;
         this.openCvDefaultDrawStrategy = builder.openCvDefaultDrawStrategy;
         this.openCvDefaultPreviewCalculator = builder.openCvDefaultPreviewCalculator;
         this.allowedScreenOrientationSwitch = builder.allowedScreenOrientationSwitch;
@@ -51,6 +53,7 @@ public class CameraConfiguration {
         private boolean landscape;
         private boolean frontCamera;
         private boolean keepScreenOn;
+        private boolean enableFpsMeter;
         private boolean openCvDefaultDrawStrategy;
         private boolean openCvDefaultPreviewCalculator;
         private boolean allowedScreenOrientationSwitch;
@@ -113,7 +116,7 @@ public class CameraConfiguration {
 
         /**
          * 该方法已经废弃，不推荐运行过程中旋转屏幕
-         * 默认竖屏，如果要横屏显示可调用{@link CameraConfiguration.Builder#landscape(boolean)}
+         * 默认竖屏，如果要横屏显示可调用{@link Builder#landscape(boolean)}
          *
          * @param isAllowedScreenOrientationSwitch
          * @return
@@ -129,6 +132,12 @@ public class CameraConfiguration {
             if (maxHeight != NOT_SET_VALUE) this.maxHeight = maxHeight;
             return this;
         }
+
+        public Builder enableFpsMeter(boolean isEnableFpsMeter) {
+            this.enableFpsMeter = isEnableFpsMeter;
+            return this;
+        }
+
 
         public Builder cvCameraViewListener(CameraBridgeViewBase.CvCameraViewListener cvCameraViewListener) {
             this.cvCameraViewListener = cvCameraViewListener;
