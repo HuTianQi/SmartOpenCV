@@ -51,13 +51,9 @@ public abstract class CameraBridgeViewWrapper implements ICameraViewBridge, ICam
     private Mat mConvertGrayMat;
     private int mCameraId;
 
-    public CameraBridgeViewWrapper(CameraBridgeViewBase base, CameraBridgeViewBaseUnit unit) {
+    public CameraBridgeViewWrapper(CameraBridgeViewBase base, SurfaceHolder holder) {
         mBase = base;
-        mScale = unit.scale;
-        mFrameWidth = unit.frameWidth;
-        mFrameHeight = unit.frameHeight;
-        mFpsMeter = unit.fpsMeter;
-        mSurfaceHolder = unit.surfaceHolder;
+        mSurfaceHolder = holder;
     }
 
 
@@ -196,20 +192,25 @@ public abstract class CameraBridgeViewWrapper implements ICameraViewBridge, ICam
         return JavaCameraFrame.getInstance().setRgba(mConvertRgbaMat).setGray(mConvertGrayMat);
     }
 
-    public static class CameraBridgeViewBaseUnit {
+    public void updateCameraBridgeViewBaseMembers(CameraBridgeViewBaseMembers members) {
+        mScale = members.scale;
+        mFrameWidth = members.frameWidth;
+        mFrameHeight = members.frameHeight;
+        mFpsMeter = members.fpsMeter;
+    }
+
+    public static class CameraBridgeViewBaseMembers {
         float scale;
         int frameWidth;
         int frameHeight;
         FpsMeter fpsMeter;
-        SurfaceHolder surfaceHolder;
 
-        public CameraBridgeViewBaseUnit(int frameWidth, int frameHeight, float scale,
-                                        FpsMeter fpsMeter, SurfaceHolder surfaceHolder) {
+        public CameraBridgeViewBaseMembers(int frameWidth, int frameHeight, float scale,
+                                           FpsMeter fpsMeter) {
             this.scale = scale;
             this.frameWidth = frameWidth;
             this.frameHeight = frameHeight;
             this.fpsMeter = fpsMeter;
-            this.surfaceHolder = surfaceHolder;
         }
     }
 }
