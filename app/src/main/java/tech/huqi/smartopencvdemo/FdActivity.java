@@ -139,7 +139,7 @@ public class FdActivity extends CameraActivity implements CvCameraViewListener2 
 
         mOpenCvCameraView = (CameraBridgeViewBase) findViewById(R.id.fd_activity_surface_view);
         mOpenCvCameraView = findViewById(R.id.fd_activity_surface_view);
-        if (isUseSmartOpenCV) { // 使用SmartOpenCV，注意需要在xml中使用SmartOpenCV的预览View
+        if (BuildConfig.IS_USED_SMARTOPENCV) { // 使用SmartOpenCV，注意需要在xml中使用SmartOpenCV的预览View
             SmartOpenCV.getInstance().init(mOpenCvCameraView, new CameraConfiguration.Builder()
                     .debug(true)
                     .cameraIndex(0)  // 设置摄像头索引,主要用于多摄像头设备，优先级低于frontCamera
@@ -148,6 +148,7 @@ public class FdActivity extends CameraActivity implements CvCameraViewListener2 
                     .openCvDefaultDrawStrategy(false) // 是否使用OpenCV默认的预览图像绘制策略
                     .openCvDefaultPreviewCalculator(false) // 是否使用OpenCV默认的预览帧大小计算策略
                     .landscape(false) // 是否横屏显示
+                    .enableFpsMeter(true)
                     .allowedScreenOrientationSwitch(true)
 //                    .maxFrameSize(400, 300) // 设置预览帧的最大大小
                     .cvCameraViewListener(this) // 设置OpenCV回调监听器
@@ -169,7 +170,7 @@ public class FdActivity extends CameraActivity implements CvCameraViewListener2 
             mOpenCvCameraView.setVisibility(CameraBridgeViewBase.VISIBLE);
             mOpenCvCameraView.setCvCameraViewListener(this);
             mOpenCvCameraView.setCameraIndex(CameraBridgeViewBase.CAMERA_ID_FRONT);
-          //  mOpenCvCameraView.setMaxFrameSize(800, 800);
+            //  mOpenCvCameraView.setMaxFrameSize(800, 800);
         }
     }
 

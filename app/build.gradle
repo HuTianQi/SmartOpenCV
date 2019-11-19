@@ -19,6 +19,17 @@ android {
             }
         }
     }
+    flavorDimensions 'type'
+    productFlavors {
+        opencv {
+            dimension 'type'
+            buildConfigField "boolean", "IS_USED_SMARTOPENCV", "false"
+        }
+        smartopencv {
+            dimension 'type'
+            buildConfigField "boolean", "IS_USED_SMARTOPENCV", "true"
+        }
+    }
     buildTypes {
         release {
             minifyEnabled false
