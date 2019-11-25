@@ -42,12 +42,19 @@ public class CameraHelper {
     }
 
     private static void rotateFrontCameraMat(Mat srcMat, Mat dstMat, int degree) {
-        if (degree == 90) {
-            Core.rotate(srcMat, dstMat, Core.ROTATE_180);
-        } else {
-            Core.rotate(srcMat, dstMat, Core.ROTATE_90_COUNTERCLOCKWISE);
+        switch (degree) {
+            case 0:
+                Core.flip(srcMat, dstMat, 1); // 沿Y轴进行水平翻转
+                break;
+            case 90:
+                Core.rotate(srcMat, dstMat, Core.ROTATE_180);
+                Core.flip(dstMat, dstMat, 1); // 沿Y轴进行水平翻转
+                break;
+            case 270:
+                Core.rotate(srcMat, dstMat, Core.ROTATE_90_COUNTERCLOCKWISE);
+                Core.flip(dstMat, dstMat, 1); // 沿Y轴进行水平翻转
+                break;
         }
-        Core.flip(dstMat, dstMat, 1); // 沿Y轴进行水平翻转
     }
 
     private static void rotateBackCameraMat(Mat srcMat, Mat dstMat, int degree) {
@@ -106,5 +113,4 @@ public class CameraHelper {
         }
         return 1;
     }
-
 }

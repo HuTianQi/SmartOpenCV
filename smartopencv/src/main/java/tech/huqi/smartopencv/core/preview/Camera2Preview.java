@@ -57,6 +57,11 @@ public class Camera2Preview extends JavaCamera2ViewWrapper implements ICameraPre
         mPreviewManager.setCameraFrameSizeCalculator(cameraFrameSizeCalculator);
     }
 
+    @Override
+    public void setIsUsbCamera() {
+        super.setIsUsbCamera();
+    }
+
     // todo 降低drawBitmap的访问权限
     @Override
     public void drawBitmap(Canvas canvas, Bitmap frameBitmap) {

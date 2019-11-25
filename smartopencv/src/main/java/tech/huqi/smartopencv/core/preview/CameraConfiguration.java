@@ -16,6 +16,7 @@ public class CameraConfiguration {
     final int cameraIndex;
     final boolean landscape;
     final boolean frontCamera;
+    final boolean usbCamera;
     final boolean keepScreenOn;
     final boolean enableFpsMeter;
     final boolean openCvDefaultDrawStrategy;
@@ -32,6 +33,7 @@ public class CameraConfiguration {
         this.cameraIndex = builder.cameraIndex;
         this.landscape = builder.landscape;
         this.frontCamera = builder.frontCamera;
+        this.usbCamera = builder.usbCamera;
         this.keepScreenOn = builder.keepScreenOn;
         this.enableFpsMeter = builder.enableFpsMeter;
         this.openCvDefaultDrawStrategy = builder.openCvDefaultDrawStrategy;
@@ -52,6 +54,7 @@ public class CameraConfiguration {
         private boolean debug;
         private boolean landscape;
         private boolean frontCamera;
+        private boolean usbCamera;
         private boolean keepScreenOn;
         private boolean enableFpsMeter;
         private boolean openCvDefaultDrawStrategy;
@@ -86,6 +89,18 @@ public class CameraConfiguration {
             return this;
         }
 
+        /**
+         * 是否是USB摄像头
+         * USB摄像头作为外设接入设备，因此不会像手机那样当旋转设备时摄像头会跟随旋转
+         * 另一方面USB摄像头安装默认取景方向是设备竖屏，而手机摄像头一般以手机横屏时为默认安装取景方向
+         *
+         * @param isUsbCamera
+         * @return
+         */
+        public Builder usbCamera(boolean isUsbCamera) {
+            this.usbCamera = isUsbCamera;
+            return this;
+        }
 
         public Builder keepScreenOn(boolean isKeepScreenOn) {
             this.keepScreenOn = isKeepScreenOn;

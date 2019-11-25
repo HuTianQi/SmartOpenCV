@@ -76,6 +76,10 @@ public class JavaCamera2ViewWrapper extends JavaCamera2View implements ICameraVi
         mCameraViewBridgeImpl.setLandscape(isLandscape);
     }
 
+    protected void setIsUsbCamera() {
+        mCameraViewBridgeImpl.setIsUsbCamera();
+    }
+
     /**
      * 默认实现为OpenCV官方绘制算法，如果想要使用自己的绘制策略，
      * 可通过{@link CameraConfiguration.Builder#drawStrategy(IDrawStrategy)}接口修改

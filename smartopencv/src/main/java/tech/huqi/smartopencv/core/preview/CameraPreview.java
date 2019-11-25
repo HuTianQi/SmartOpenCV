@@ -44,6 +44,11 @@ public class CameraPreview extends JavaCameraViewWrapper implements ICameraPrevi
     }
 
     @Override
+    public void setIsUsbCamera() {
+        super.setIsUsbCamera();
+    }
+
+    @Override
     public void setLandscape(boolean isSetLandscape) {
         super.setLandscape(isSetLandscape);
         this.isSetLandscape = isSetLandscape;

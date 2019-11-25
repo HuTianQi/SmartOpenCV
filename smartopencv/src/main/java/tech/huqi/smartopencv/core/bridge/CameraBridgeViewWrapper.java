@@ -47,6 +47,7 @@ public abstract class CameraBridgeViewWrapper implements ICameraViewBridge, ICam
     protected CameraBridgeViewBase mBase;
     protected boolean isUseFrontCamera = false;
     protected boolean isSetLandscape;
+    protected boolean isUsbCamera;
     private Mat mConvertRgbaMat;
     private Mat mConvertGrayMat;
     private int mCameraId;
@@ -168,9 +169,10 @@ public abstract class CameraBridgeViewWrapper implements ICameraViewBridge, ICam
     public void AllocateCache(int frameWidth, int frameHeight) {
         mConvertRgbaMat = new Mat();
         mConvertGrayMat = new Mat();
-        if (Util.isLandscape(mBase)) {
+        // USB摄像头默认安装取景方向是设备竖屏时方向，而手机摄像头默认安装取景方向是设备横屏时的方向
+        if (Util.isLandscape(mBase) || isUsbCamera) {
             mCacheBitmap = Bitmap.createBitmap(frameWidth, frameHeight, Bitmap.Config.ARGB_8888);
-            if (!isSetLandscape) {
+            if (!isSetLandscape && !isUsbCamera) {
                 Util.printErrorLog("[Warning]:You've called \".landscape(false)\", but the actual direction of the screen is horizontal," +
                         "please set the 'android:screenOrientation = \"portrait\"' in your Activity of AndroidManifest.xml");
                 isSetLandscape = true;

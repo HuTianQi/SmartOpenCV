@@ -12,7 +12,6 @@ import tech.huqi.smartopencv.core.bridge.CameraViewBridgeImpl;
 import tech.huqi.smartopencv.core.preview.CameraConfiguration;
 import tech.huqi.smartopencv.core.preview.CameraPreview;
 import tech.huqi.smartopencv.draw.IDrawStrategy;
-import tech.huqi.smartopencv.utils.Util;
 
 /**
  * Created by hzhuqi on 2019/9/3
@@ -81,6 +80,10 @@ public class JavaCameraViewWrapper extends JavaCameraView implements ICameraView
 
     protected void setLandscape(boolean isAllowedScreenSwitch) {
         mCameraViewBridgeImpl.setLandscape(isAllowedScreenSwitch);
+    }
+
+    protected void setIsUsbCamera() {
+        mCameraViewBridgeImpl.setIsUsbCamera();
     }
 
     /**

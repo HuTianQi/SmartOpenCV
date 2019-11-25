@@ -2,11 +2,19 @@ package tech.huqi.smartopencv.utils;
 
 import android.content.Context;
 import android.content.res.Configuration;
+import android.graphics.Bitmap;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Surface;
 import android.view.View;
 import android.view.WindowManager;
+
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.nio.ByteBuffer;
+import java.nio.channels.FileChannel;
 
 import tech.huqi.smartopencv.SmartOpenCV;
 
@@ -95,5 +103,20 @@ public class Util {
         if (degree == Surface.ROTATION_180) return 180;
         if (degree == Surface.ROTATION_270) return 270;
         return 0;
+    }
+
+    public static byte[] bitmap2Bytes(Bitmap bm) {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bm.compress(Bitmap.CompressFormat.PNG, 100, baos);
+        return baos.toByteArray();
+    }
+
+    public static boolean writeBytes2File(byte[] bytes, File file) throws IOException {
+        if (bytes == null || bytes.length == 0 || file == null) return false;
+        FileChannel fileChannel = new FileOutputStream(file).getChannel();
+        ByteBuffer buffer = ByteBuffer.wrap(bytes);
+        fileChannel.write(buffer);
+        fileChannel.close();
+        return true;
     }
 }

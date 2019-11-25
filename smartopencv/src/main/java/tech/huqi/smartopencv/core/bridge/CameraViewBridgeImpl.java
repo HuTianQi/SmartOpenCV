@@ -28,4 +28,7 @@ public class CameraViewBridgeImpl extends CameraBridgeViewWrapper {
         this.isSetLandscape = isLandscape;
     }
 
+    public void setIsUsbCamera() {
+        this.isUsbCamera = true;
+    }
 }

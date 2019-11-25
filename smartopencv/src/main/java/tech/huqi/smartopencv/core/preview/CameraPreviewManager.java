@@ -36,6 +36,9 @@ public class CameraPreviewManager extends CameraPreviewAdapter {
         if (cameraConfiguration.frontCamera) {
             ((ICameraPreview) mBase).setUseFrontCamera(true);
         }
+        if (cameraConfiguration.usbCamera) {
+            ((ICameraPreview) mBase).setIsUsbCamera();
+        }
         if (cameraConfiguration.drawStrategy != null) {
             ((ICameraPreview) mBase).setDrawStrategy(cameraConfiguration.drawStrategy);
         }

@@ -9,6 +9,10 @@ public abstract class CameraPreviewAdapter implements ICameraPreview {
         // empty
     }
 
+    public void setIsUsbCamera() {
+        // empty
+    }
+
     @Override
     public void setLandscape(boolean isAllowedScreenSwitch) {
         // empty
