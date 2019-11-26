@@ -59,7 +59,6 @@ public class FdActivity extends CameraActivity implements CvCameraViewListener2 
     private int mAbsoluteFaceSize = 0;
 
     private CameraBridgeViewBase mOpenCvCameraView;
-    private boolean isUseSmartOpenCV = true;
 
     private BaseLoaderCallback mLoaderCallback = new BaseLoaderCallback(this) {
         @Override
@@ -139,7 +138,7 @@ public class FdActivity extends CameraActivity implements CvCameraViewListener2 
                 .debug(true)
                 .cameraIndex(0)      // 设置摄像头索引,主要用于多摄像头设备，优先级低于frontCamera
                 .keepScreenOn(false) // 是否保持屏幕常亮
-                .frontCamera(true)  // 是否使用前置摄像头
+                .frontCamera(true)   // 是否使用前置摄像头
                 .openCvDefaultDrawStrategy(false)      // 是否使用OpenCV默认的预览图像绘制策略
                 .openCvDefaultPreviewCalculator(false) // 是否使用OpenCV默认的预览帧大小计算策略
                 .landscape(false)     // 是否横屏显示
