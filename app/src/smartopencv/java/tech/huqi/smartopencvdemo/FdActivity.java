@@ -1,9 +1,6 @@
 package tech.huqi.smartopencvdemo;
 
 import android.content.Context;
-import android.content.res.Configuration;
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -35,8 +32,6 @@ import java.util.List;
 
 import tech.huqi.smartopencv.SmartOpenCV;
 import tech.huqi.smartopencv.core.preview.CameraConfiguration;
-import tech.huqi.smartopencv.draw.IDrawStrategy;
-import tech.huqi.smartopencv.draw.IPreviewSizeCalculator;
 
 public class FdActivity extends CameraActivity implements CvCameraViewListener2 {
 
@@ -139,39 +134,33 @@ public class FdActivity extends CameraActivity implements CvCameraViewListener2 
 
         mOpenCvCameraView = (CameraBridgeViewBase) findViewById(R.id.fd_activity_surface_view);
         mOpenCvCameraView = findViewById(R.id.fd_activity_surface_view);
-        if (BuildConfig.IS_USED_SMARTOPENCV) { // 使用SmartOpenCV，注意需要在xml中使用SmartOpenCV的预览View
-            SmartOpenCV.getInstance().init(mOpenCvCameraView, new CameraConfiguration.Builder()
-                    .debug(true)
-                    .cameraIndex(0)  // 设置摄像头索引,主要用于多摄像头设备，优先级低于frontCamera
-                    .keepScreenOn(false) // 是否保持屏幕常亮
-                    .frontCamera(true) // 是否使用前置摄像头
-                    .openCvDefaultDrawStrategy(false) // 是否使用OpenCV默认的预览图像绘制策略
-                    .openCvDefaultPreviewCalculator(false) // 是否使用OpenCV默认的预览帧大小计算策略
-                    .landscape(false) // 是否横屏显示
-                    .enableFpsMeter(true)
-                    .allowedScreenOrientationSwitch(true)
-//                    .maxFrameSize(400, 300) // 设置预览帧的最大大小
-                    .cvCameraViewListener(this) // 设置OpenCV回调监听器
-//                    .previewSizeCalculator(new IPreviewSizeCalculator() { // 自定义预览帧大小计算策略
-//                        @Override
-//                        public Size calculateCameraFrameSize(List<Size> supportedSizes, int surfaceWidth, int surfaceHeight) {
-//                            return null; // 若需要根据自己的具体业务场景改写览帧大小，覆写该方法逻辑
-//                        }
-//                    })
-//                    .drawStrategy(new IDrawStrategy() { // 自定义绘制策略
-//                        @Override
-//                        public void drawBitmap(Canvas canvas, Bitmap frameBitmap, int surfaceWidth, int surfaceHeight, boolean isSetLandscape, boolean isPortrait) {
-//                            // 若需根据自己的具体业务场景绘制预览帧图像，覆写该方法逻辑
-//                        }
-//                    })
-                    .build());
-        } else {
-            mOpenCvCameraView.setCameraPermissionGranted();
-            mOpenCvCameraView.setVisibility(CameraBridgeViewBase.VISIBLE);
-            mOpenCvCameraView.setCvCameraViewListener(this);
-            mOpenCvCameraView.setCameraIndex(CameraBridgeViewBase.CAMERA_ID_FRONT);
-            //  mOpenCvCameraView.setMaxFrameSize(800, 800);
-        }
+
+        SmartOpenCV.getInstance().init(mOpenCvCameraView, new CameraConfiguration.Builder()
+                .debug(true)
+                .cameraIndex(0)      // 设置摄像头索引,主要用于多摄像头设备，优先级低于frontCamera
+                .keepScreenOn(false) // 是否保持屏幕常亮
+                .frontCamera(true)  // 是否使用前置摄像头
+                .openCvDefaultDrawStrategy(false)      // 是否使用OpenCV默认的预览图像绘制策略
+                .openCvDefaultPreviewCalculator(false) // 是否使用OpenCV默认的预览帧大小计算策略
+                .landscape(false)     // 是否横屏显示
+                .enableFpsMeter(true) // 开启预览帧率的显示
+                .usbCamera(false)     // 是否使用USB摄像头，当设备接入的是USB摄像头时将其设置为true
+                .maxFrameSize(400, 300)     // 设置预览帧的最大大小
+                .cvCameraViewListener(this) // 设置OpenCV回调监听器
+//                .previewSizeCalculator(new IPreviewSizeCalculator() { // 自定义预览帧大小计算策略
+//                    @Override
+//                    public Size calculateCameraFrameSize(List<Size> supportedSizes, int surfaceWidth, int surfaceHeight) {
+//                        return null; // 若需要根据自己的具体业务场景改写览帧大小，覆写该方法逻辑
+//                    }
+//                })
+//                .drawStrategy(new IDrawStrategy() { // 自定义绘制策略
+//                    @Override
+//                    public void drawBitmap(Canvas canvas, Bitmap frameBitmap, int surfaceWidth, int surfaceHeight, boolean isSetLandscape, boolean isPortrait) {
+//                        // 若需根据自己的具体业务场景绘制预览帧图像，覆写该方法逻辑
+//                    }
+//                })
+                .build());
+
     }
 
     @Override
@@ -293,12 +282,6 @@ public class FdActivity extends CameraActivity implements CvCameraViewListener2 
                 mNativeDetector.stop();
             }
         }
-    }
-
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-        SmartOpenCV.getInstance().notifyScreenOrientationSwitch();
     }
 }
 
