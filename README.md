@@ -79,6 +79,7 @@ OpenCV Android端SDK虽然很容易上手和使用，但是预览存在很多问
   1. 预览自适应：自动根据前后摄像头，横竖屏以及不同摄像头参数来调整与适配预览方向以及大小，开发者无需写任何额外代码
   2. 可扩展预览绘制算法：SmartOpenCV内置了一种默认的预览帧绘制算法，同时提供策略接口让开发者根据自己的业务场景自定义预览绘制算法
   3. 可扩展预览帧大小选择算法：SmartOpenCV内置了一种默认的预览帧大小计算算法，同时提供策略接口让开发者根据自己的业务自定义预览帧大小计算算法
+  4. 支持**USB摄像头**：USB摄像头作为外设接入设备，和手机/平板等移动设备内置摄像头存在差异，SDK内部在处理移动设备摄像头的逻辑时也兼容了对闸机等的USB摄像头的处理
   
 - **提供更友好的API接口**：在继承OpenCV官方接口的同时，SmartOpenCV将众多繁杂操作统一通过CameraConfiguration来配置，提供更友好的Fluent API接口，让开发者能够更灵活的控制预览显示相关参数与配置
 
@@ -126,14 +127,16 @@ OpenCV Android端SDK虽然很容易上手和使用，但是预览存在很多问
 ```java
 SmartOpenCV.getInstance().init(mOpenCvCameraView, new CameraConfiguration.Builder()
                     .debug(true)
-                    .cameraIndex(0)  // 设置摄像头索引,主要用于多摄像头设备，优先级低于frontCamera
+                    .cameraIndex(0)      // 设置摄像头索引,主要用于多摄像头设备，优先级低于frontCamera
                     .keepScreenOn(false) // 是否保持屏幕常亮
                     .frontCamera(false)  // 是否使用前置摄像头
-                    .openCvDefaultDrawStrategy(false) // 是否使用OpenCV默认的预览图像绘制策略
+                    .openCvDefaultDrawStrategy(false)      // 是否使用OpenCV默认的预览图像绘制策略
                     .openCvDefaultPreviewCalculator(false) // 是否使用OpenCV默认的预览帧大小计算策略
-                    .landscape(false) // 是否横屏显示
+                    .landscape(false)     // 是否横屏显示
+                    .enableFpsMeter(true) // 开启预览帧率的显示
+                    .usbCamera(false)     // 是否使用USB摄像头，当设备接入的是USB摄像头时将其设置为true   
                     .allowedScreenOrientationSwitch(true)
-                    .maxFrameSize(400, 300) // 设置预览帧的最大大小
+                    .maxFrameSize(400, 300)     // 设置预览帧的最大大小
                     .cvCameraViewListener(this) // 设置OpenCV回调监听器
                     .previewSizeCalculator(new IPreviewSizeCalculator() { // 自定义预览帧大小计算策略
                         @Override
