@@ -46,6 +46,10 @@ public class CameraConfiguration {
         Util.isEnableDebugMode(builder.debug);
     }
 
+    public boolean isUsbCamera() {
+        return usbCamera;
+    }
+
     public boolean isAllowedScreenOrientationSwitch() {
         return allowedScreenOrientationSwitch;
     }

@@ -10,6 +10,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import tech.huqi.smartopencv.SmartOpenCV;
 import tech.huqi.smartopencv.utils.Util;
 
 /**
@@ -48,7 +49,10 @@ public class DefaultFrameSizeCalculator implements IPreviewSizeCalculator {
 
         int targetWidth = surfaceWidth;
         int targetHeight = surfaceHeight;
-        if (isPortrait) {
+        /**
+         * USB摄像头默认取景方向和设备竖屏方向一致，因此USB摄像头设备无需调整宽高
+         */
+        if (!SmartOpenCV.getInstance().isUsbCamera() && isPortrait) {
             targetWidth = surfaceHeight;
             targetHeight = surfaceWidth;
         }

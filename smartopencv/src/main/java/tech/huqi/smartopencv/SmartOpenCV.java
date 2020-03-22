@@ -57,4 +57,11 @@ public class SmartOpenCV {
             mPreview.enableView();
         }
     }
+
+    public boolean isUsbCamera() {
+        if (mConfiguration != null) {
+            return mConfiguration.isUsbCamera();
+        }
+        return false;
+    }
 }
