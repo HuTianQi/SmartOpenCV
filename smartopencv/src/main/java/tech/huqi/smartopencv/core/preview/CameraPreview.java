@@ -21,7 +21,6 @@ import tech.huqi.smartopencv.utils.Util;
 public class CameraPreview extends JavaCameraViewWrapper implements ICameraPreview {
     private int mSurfaceWidth;
     private int mSurfaceHeight;
-    private boolean isSetLandscape;
     private CameraPreviewManager mPreviewManager;
 
     public CameraPreview(Context context, int cameraId) {
@@ -51,7 +50,6 @@ public class CameraPreview extends JavaCameraViewWrapper implements ICameraPrevi
     @Override
     public void setLandscape(boolean isSetLandscape) {
         super.setLandscape(isSetLandscape);
-        this.isSetLandscape = isSetLandscape;
     }
 
     public void setDrawStrategy(IDrawStrategy drawStrategy) {
@@ -62,13 +60,12 @@ public class CameraPreview extends JavaCameraViewWrapper implements ICameraPrevi
         mPreviewManager.setCameraFrameSizeCalculator(cameraFrameSizeCalculator);
     }
 
-    // todo 降低drawBitmap的访问权限
     @Override
     public void drawBitmap(Canvas canvas, Bitmap frameBitmap) {
         if (mPreviewManager.isUseOpenCvDefaultDrawStrategy) {
             super.drawBitmap(canvas, frameBitmap);
         } else {
-            mPreviewManager.drawStrategy.drawBitmap(canvas, frameBitmap, mSurfaceWidth, mSurfaceHeight, isSetLandscape, Util.isPortrait(this));
+            mPreviewManager.drawStrategy.drawBitmap(canvas, frameBitmap, mSurfaceWidth, mSurfaceHeight);
         }
     }
 

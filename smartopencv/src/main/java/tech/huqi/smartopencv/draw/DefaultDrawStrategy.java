@@ -16,7 +16,7 @@ public class DefaultDrawStrategy implements IDrawStrategy {
     private static final int MAX_LOG_COUNT = 3;
 
     @Override
-    public void drawBitmap(Canvas canvas, Bitmap frameBitmap, int surfaceWidth, int surfaceHeight, boolean isSetLandscape, boolean isPortrait) {
+    public void drawBitmap(Canvas canvas, Bitmap frameBitmap, int surfaceWidth, int surfaceHeight) {
         if (frameBitmap.getWidth() < surfaceWidth || frameBitmap.getHeight() < surfaceHeight) {
             Bitmap newBitmap = CameraHelper.scaleImage(frameBitmap, surfaceWidth, surfaceHeight);
             canvas.drawBitmap(newBitmap, new Rect(0, 0, newBitmap.getWidth(), newBitmap.getHeight()),

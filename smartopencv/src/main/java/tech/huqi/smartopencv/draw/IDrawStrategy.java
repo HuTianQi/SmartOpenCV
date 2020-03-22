@@ -17,14 +17,12 @@ public interface IDrawStrategy {
     /**
      * 绘制每一帧图像
      *
-     * @param canvas         画布
-     * @param frameBitmap    待绘制图像帧的{@code Bitmap}对象，其宽高分别等同于预览帧大小计算接口
-     *                       {@link IPreviewSizeCalculator#calculateCameraFrameSize(List, int, int)}
-     *                       返回的Size宽和高
-     * @param surfaceWidth   SurfaceView的宽度
-     * @param surfaceHeight  SurfaceView的高度
-     * @param isSetLandscape 是否设置为横屏
-     * @param isPortrait     当前屏幕是否是竖屏显示
+     * @param canvas        画布
+     * @param frameBitmap   待绘制图像帧的{@code Bitmap}对象，其宽高分别等同于预览帧大小计算接口
+     *                      {@link IPreviewSizeCalculator#calculateCameraFrameSize(List, int, int)}
+     *                      返回的Size宽和高
+     * @param surfaceWidth  SurfaceView的宽度
+     * @param surfaceHeight SurfaceView的高度
      */
-    void drawBitmap(Canvas canvas, Bitmap frameBitmap, int surfaceWidth, int surfaceHeight, boolean isSetLandscape, boolean isPortrait);
+    void drawBitmap(Canvas canvas, Bitmap frameBitmap, int surfaceWidth, int surfaceHeight);
 }
