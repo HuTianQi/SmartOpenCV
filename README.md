@@ -97,6 +97,30 @@ OpenCV Android端SDK虽然很容易上手和使用，但是预览存在很多问
 [smartopencv-app-debug.apk](demo/smartopencv-app-debug.apk)  
 [opencv-app-debug.apk](demo/opencv-app-debug.apk)  
 
+### Integration
+
+Step1：在项目根目录的build.gradle中添加对jitpack仓库的配置
+
+```
+allprojects {
+    repositories {
+        ...
+        maven { url 'https://jitpack.io' }
+    }
+}
+```
+
+Step2：在需要使用`SmartOpenCV`库的模块中添加依赖
+
+```
+dependencies {
+	implementation('com.github.HuTianQi:SmartOpenCV:1.0.1') { // 版本号建议使用已release的最新版本
+        exclude module: 'openCVLibrary411' // 由于目前多模块依赖时jitpack打包存在bug，排除打包时依赖的该模块
+    }
+}
+```
+
+
 ### Usage
 
 #### 基础用法
@@ -126,31 +150,31 @@ OpenCV Android端SDK虽然很容易上手和使用，但是预览存在很多问
 
 ```java
 SmartOpenCV.getInstance().init(mOpenCvCameraView, new CameraConfiguration.Builder()
-                    .debug(true)
-                    .cameraIndex(0)      // 设置摄像头索引,主要用于多摄像头设备，优先级低于frontCamera
-                    .keepScreenOn(false) // 是否保持屏幕常亮
-                    .frontCamera(false)  // 是否使用前置摄像头
-                    .openCvDefaultDrawStrategy(false)      // 是否使用OpenCV默认的预览图像绘制策略
-                    .openCvDefaultPreviewCalculator(false) // 是否使用OpenCV默认的预览帧大小计算策略
-                    .landscape(false)     // 是否横屏显示
-                    .enableFpsMeter(true) // 开启预览帧率的显示
-                    .usbCamera(false)     // 是否使用USB摄像头，当设备接入的是USB摄像头时将其设置为true   
-                    .allowedScreenOrientationSwitch(true)
-                    .maxFrameSize(400, 300)     // 设置预览帧的最大大小
-                    .cvCameraViewListener(this) // 设置OpenCV回调监听器
-                    .previewSizeCalculator(new IPreviewSizeCalculator() { // 自定义预览帧大小计算策略
-                        @Override
-                        public Size calculateCameraFrameSize(List<Size> supportedSizes, int surfaceWidth, int surfaceHeight) {
-                            return null; // 若需要根据自己的具体业务场景改写览帧大小，覆写该方法逻辑
-                        }
-                    })
-                    .drawStrategy(new IDrawStrategy() { // 自定义绘制策略
-                        @Override
-                        public void drawBitmap(Canvas canvas, Bitmap frameBitmap, int surfaceWidth, int surfaceHeight, boolean isSetLandscape, boolean isPortrait) {
-                            // 若需根据自己的具体业务场景绘制预览帧图像，覆写该方法逻辑
-                        }
-                    })
-                    .build());
+    .debug(true)
+    .cameraIndex(0)      // 设置摄像头索引,主要用于多摄像头设备，优先级低于frontCamera
+    .keepScreenOn(false) // 是否保持屏幕常亮
+    .frontCamera(true)   // 是否使用前置摄像头
+    .openCvDefaultDrawStrategy(false)      // 是否使用OpenCV默认的预览图像绘制策略
+    .openCvDefaultPreviewCalculator(false) // 是否使用OpenCV默认的预览帧大小计算策略
+    .landscape(false)     // 是否横屏显示
+    .enableFpsMeter(true) // 开启预览帧率的显示
+    .usbCamera(false)     // 是否使用USB摄像头，当设备接入的是USB摄像头时将其设置为true
+    .maxFrameSize(400, 300)     // 设置预览帧的最大大小
+    .cvCameraViewListener(this) // 设置OpenCV回调监听器
+    .previewSizeCalculator(new IPreviewSizeCalculator() { // 自定义预览帧大小计算策略
+        @Override
+        public Size calculateCameraFrameSize(List<Size> supportedSizes, int surfaceWidth, int surfaceHeight) {
+            // 若需要根据自己的具体业务场景改写览帧大小，覆写该方法逻辑
+            return new Size(1080,1920); 
+        }
+    })
+    .drawStrategy(new IDrawStrategy() { // 自定义绘制策略
+        @Override
+        public void drawBitmap(Canvas canvas, Bitmap frameBitmap, int surfaceWidth, int surfaceHeight) {
+            // 若需根据自己的具体业务场景绘制预览帧图像，覆写该方法逻辑
+        }
+    })
+    .build());
 ```
 
 
