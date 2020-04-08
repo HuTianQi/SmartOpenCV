@@ -1,6 +1,7 @@
 package tech.huqi.smartopencvdemo;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -144,17 +145,19 @@ public class FdActivity extends CameraActivity implements CvCameraViewListener2 
                 .landscape(false)     // 是否横屏显示
                 .enableFpsMeter(true) // 开启预览帧率的显示
                 .usbCamera(false)     // 是否使用USB摄像头，当设备接入的是USB摄像头时将其设置为true
+                .bitmapConfig(Bitmap.Config.RGB_565) // 设置预览帧图像格式
                 .maxFrameSize(400, 300)     // 设置预览帧的最大大小
                 .cvCameraViewListener(this) // 设置OpenCV回调监听器
 //                .previewSizeCalculator(new IPreviewSizeCalculator() { // 自定义预览帧大小计算策略
 //                    @Override
 //                    public Size calculateCameraFrameSize(List<Size> supportedSizes, int surfaceWidth, int surfaceHeight) {
-//                        return null; // 若需要根据自己的具体业务场景改写览帧大小，覆写该方法逻辑
+//                        // 若需要根据自己的具体业务场景改写览帧大小，覆写该方法逻辑
+//                        return new Size(1080, 1920);
 //                    }
 //                })
 //                .drawStrategy(new IDrawStrategy() { // 自定义绘制策略
 //                    @Override
-//                    public void drawBitmap(Canvas canvas, Bitmap frameBitmap, int surfaceWidth, int surfaceHeight, boolean isSetLandscape, boolean isPortrait) {
+//                    public void drawBitmap(Canvas canvas, Bitmap frameBitmap, int surfaceWidth, int surfaceHeight) {
 //                        // 若需根据自己的具体业务场景绘制预览帧图像，覆写该方法逻辑
 //                    }
 //                })
