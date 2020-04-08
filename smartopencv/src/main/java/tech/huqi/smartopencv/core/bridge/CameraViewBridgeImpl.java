@@ -1,5 +1,6 @@
 package tech.huqi.smartopencv.core.bridge;
 
+import android.graphics.Bitmap;
 import android.view.SurfaceHolder;
 
 import org.opencv.android.CameraBridgeViewBase;
@@ -30,5 +31,9 @@ public class CameraViewBridgeImpl extends CameraBridgeViewWrapper {
 
     public void setIsUsbCamera() {
         this.isUsbCamera = true;
+    }
+
+    public void setBitmapConfig(Bitmap.Config bitmapConfig) {
+        this.mBitmapConfig = bitmapConfig;
     }
 }

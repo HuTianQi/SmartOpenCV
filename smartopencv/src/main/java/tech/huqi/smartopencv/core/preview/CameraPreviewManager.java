@@ -9,6 +9,8 @@ import tech.huqi.smartopencv.draw.DefaultFrameSizeCalculator;
 import tech.huqi.smartopencv.draw.IDrawStrategy;
 import tech.huqi.smartopencv.draw.IPreviewSizeCalculator;
 
+import static tech.huqi.smartopencv.core.preview.CameraConfiguration.DEFAULT_BITMAP_CONFIG;
+
 /**
  * Created by hzhuqi on 2019/9/9
  */
@@ -38,6 +40,9 @@ public class CameraPreviewManager extends CameraPreviewAdapter {
         }
         if (cameraConfiguration.usbCamera) {
             ((ICameraPreview) mBase).setIsUsbCamera();
+        }
+        if (cameraConfiguration.bitmapConfig != DEFAULT_BITMAP_CONFIG) {
+            ((ICameraPreview) mBase).setBitmapConfig(cameraConfiguration.bitmapConfig);
         }
         if (cameraConfiguration.drawStrategy != null) {
             ((ICameraPreview) mBase).setDrawStrategy(cameraConfiguration.drawStrategy);

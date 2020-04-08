@@ -1,5 +1,7 @@
 package tech.huqi.smartopencv.core.preview;
 
+import android.graphics.Bitmap;
+
 import org.opencv.android.CameraBridgeViewBase;
 
 import tech.huqi.smartopencv.draw.IDrawStrategy;
@@ -10,6 +12,7 @@ import tech.huqi.smartopencv.utils.Util;
  * Created by hzhuqi on 2019/9/5
  */
 public class CameraConfiguration {
+    public static final Bitmap.Config DEFAULT_BITMAP_CONFIG = Bitmap.Config.RGB_565;
     public static final int NOT_SET_VALUE = -1000;
     final int maxWidth;
     final int maxHeight;
@@ -22,6 +25,7 @@ public class CameraConfiguration {
     final boolean openCvDefaultDrawStrategy;
     final boolean openCvDefaultPreviewCalculator;
     final boolean allowedScreenOrientationSwitch;
+    final Bitmap.Config bitmapConfig;
     final IDrawStrategy drawStrategy;
     final IPreviewSizeCalculator previewSizeCalculator;
     final CameraBridgeViewBase.CvCameraViewListener cvCameraViewListener;
@@ -39,6 +43,7 @@ public class CameraConfiguration {
         this.openCvDefaultDrawStrategy = builder.openCvDefaultDrawStrategy;
         this.openCvDefaultPreviewCalculator = builder.openCvDefaultPreviewCalculator;
         this.allowedScreenOrientationSwitch = builder.allowedScreenOrientationSwitch;
+        this.bitmapConfig = builder.bitmapConfig;
         this.drawStrategy = builder.drawStrategy;
         this.previewSizeCalculator = builder.previewSizeCalculator;
         this.cvCameraViewListener = builder.cvCameraViewListener;
@@ -67,6 +72,7 @@ public class CameraConfiguration {
         private int maxWidth = NOT_SET_VALUE;
         private int maxHeight = NOT_SET_VALUE;
         private int cameraIndex = NOT_SET_VALUE;
+        private Bitmap.Config bitmapConfig = DEFAULT_BITMAP_CONFIG;
         private IDrawStrategy drawStrategy;
         private IPreviewSizeCalculator previewSizeCalculator;
         private CameraBridgeViewBase.CvCameraViewListener cvCameraViewListener;
@@ -157,6 +163,10 @@ public class CameraConfiguration {
             return this;
         }
 
+        public Builder bitmapConfig(Bitmap.Config bitmapConfig) {
+            this.bitmapConfig = bitmapConfig;
+            return this;
+        }
 
         public Builder cvCameraViewListener(CameraBridgeViewBase.CvCameraViewListener cvCameraViewListener) {
             this.cvCameraViewListener = cvCameraViewListener;

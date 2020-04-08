@@ -86,6 +86,10 @@ public class JavaCameraViewWrapper extends JavaCameraView implements ICameraView
         mCameraViewBridgeImpl.setIsUsbCamera();
     }
 
+    protected void setBitmapConfig(Bitmap.Config bitmapConfig) {
+        mCameraViewBridgeImpl.setBitmapConfig(bitmapConfig);
+    }
+
     /**
      * 默认实现为OpenCV官方绘制算法，如果想要使用自己的绘制策略，
      * 可通过{@link CameraConfiguration.Builder#drawStrategy(IDrawStrategy)}接口修改

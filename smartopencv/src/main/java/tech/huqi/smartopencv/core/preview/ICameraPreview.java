@@ -1,5 +1,7 @@
 package tech.huqi.smartopencv.core.preview;
 
+import android.graphics.Bitmap;
+
 import tech.huqi.smartopencv.draw.IDrawStrategy;
 import tech.huqi.smartopencv.draw.IPreviewSizeCalculator;
 
@@ -12,6 +14,8 @@ public interface ICameraPreview {
     void setIsUsbCamera();
 
     void setCameraIndex(int cameraIndex);
+
+    void setBitmapConfig(Bitmap.Config bitmapConfig);
 
     void setLandscape(boolean isAllowedScreenSwitch);
 

@@ -59,6 +59,10 @@ public class Camera2Preview extends JavaCamera2ViewWrapper implements ICameraPre
         super.setIsUsbCamera();
     }
 
+    @Override
+    public void setBitmapConfig(Bitmap.Config bitmapConfig) {
+        super.setBitmapConfig(bitmapConfig);
+    }
 
     @Override
     public void drawBitmap(Canvas canvas, Bitmap frameBitmap) {

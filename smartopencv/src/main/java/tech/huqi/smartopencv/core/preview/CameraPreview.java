@@ -48,6 +48,11 @@ public class CameraPreview extends JavaCameraViewWrapper implements ICameraPrevi
     }
 
     @Override
+    public void setBitmapConfig(Bitmap.Config bitmapConfig) {
+        super.setBitmapConfig(bitmapConfig);
+    }
+
+    @Override
     public void setLandscape(boolean isSetLandscape) {
         super.setLandscape(isSetLandscape);
     }

@@ -22,6 +22,7 @@ import tech.huqi.smartopencv.utils.Util;
 
 import static org.opencv.android.CameraBridgeViewBase.CAMERA_ID_BACK;
 import static org.opencv.android.CameraBridgeViewBase.CAMERA_ID_FRONT;
+import static tech.huqi.smartopencv.core.preview.CameraConfiguration.DEFAULT_BITMAP_CONFIG;
 
 /**
  * Created by hzhuqi on 2019/9/3
@@ -48,6 +49,7 @@ public abstract class CameraBridgeViewWrapper implements ICameraViewBridge, ICam
     protected boolean isUseFrontCamera = false;
     protected boolean isSetLandscape;
     protected boolean isUsbCamera;
+    protected Bitmap.Config mBitmapConfig = DEFAULT_BITMAP_CONFIG;
     private Mat mConvertRgbaMat;
     private Mat mConvertGrayMat;
     private int mCameraId;
@@ -171,20 +173,21 @@ public abstract class CameraBridgeViewWrapper implements ICameraViewBridge, ICam
         mConvertGrayMat = new Mat();
         // USB摄像头默认安装取景方向是设备竖屏时方向，而手机摄像头默认安装取景方向是设备横屏时的方向
         if (Util.isLandscape(mBase) || isUsbCamera) {
-            mCacheBitmap = Bitmap.createBitmap(frameWidth, frameHeight, Bitmap.Config.ARGB_8888);
+            mCacheBitmap = Bitmap.createBitmap(frameWidth, frameHeight, mBitmapConfig);
             if (!isSetLandscape && !isUsbCamera) {
                 Util.printErrorLog("[Warning]:You've called \".landscape(false)\", but the actual direction of the screen is horizontal," +
                         "please set the 'android:screenOrientation = \"portrait\"' in your Activity of AndroidManifest.xml");
                 isSetLandscape = true;
             }
         } else {
-            mCacheBitmap = Bitmap.createBitmap(frameHeight, frameWidth, Bitmap.Config.ARGB_8888);
+            mCacheBitmap = Bitmap.createBitmap(frameHeight, frameWidth, mBitmapConfig);
             if (isSetLandscape) {
                 Util.printErrorLog("[Warning]:You set the horizontal direction, but the actual direction of the screen is not horizontal," +
                         "please set the 'android:screenOrientation = \"landscape\" \"in your Activity of AndroidManifest.xml");
                 isSetLandscape = false;
             }
         }
+        Util.printDebugLog("bitmap config:" + mBitmapConfig.toString());
     }
 
     private CvCameraViewFrame adjustImageOrientation(CvCameraViewFrame frame) {
